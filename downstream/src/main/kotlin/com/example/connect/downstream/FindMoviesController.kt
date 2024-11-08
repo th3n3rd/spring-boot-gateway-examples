@@ -4,15 +4,17 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class FindMoviesController {
+class FindMoviesController(
+    private val movieCatalogue: MovieCatalogue
+) {
 
     @GetMapping("/movies")
     fun handle(): Any {
-        return Response(listOf(
-            Response.Movie("first-movie"),
-            Response.Movie("second-movie"),
-            Response.Movie("third-movie"),
-        ))
+        return Response(
+            movieCatalogue.findAll().map {
+                Response.Movie(it.title)
+            }
+        )
     }
 
     data class Response(val movies: List<Movie>) {
