@@ -1,3 +1,5 @@
 package com.example.connect.downstream
 
-data class Movie(val title: String)
+import java.time.Year
+
+data class Movie(val title: String, val year: Year)

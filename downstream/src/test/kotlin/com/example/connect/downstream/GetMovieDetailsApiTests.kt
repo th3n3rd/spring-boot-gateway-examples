@@ -9,10 +9,10 @@ import org.springframework.test.web.servlet.get
 import java.time.Year
 
 @WebMvcTest(
-    FindMoviesController::class,
+    GetMovieDetailsController::class,
     InMemoryMovieCatalogue::class
 )
-class FindMoviesApiTests {
+class GetMovieDetailsApiTests {
 
     @Autowired
     private lateinit var client: MockMvc
@@ -21,14 +21,10 @@ class FindMoviesApiTests {
     private lateinit var movieCatalogue: InMemoryMovieCatalogue
 
     @Test
-    fun `lists all movies successfully`() {
-        givenTheCatalogueContains(
-            Movie("first-movie", Year.of(1980)),
-            Movie("second-movie", Year.of(2011)),
-            Movie("third-movie", Year.of(2022)),
-        )
+    fun `provides details for a given movie`() {
+        givenTheCatalogueContains(Movie("any-movie", Year.of(1990)))
 
-        val result = client.get("/movies")
+        val result = client.get("/movies/any-movie")
 
         result.andExpect {
             status { isOk() }
@@ -36,11 +32,8 @@ class FindMoviesApiTests {
                 contentType(APPLICATION_JSON)
                 json("""
                 {
-                    "movies": [
-                        { title: "first-movie" },
-                        { title: "second-movie" },
-                        { title: "third-movie" }
-                    ]
+                    "title": "any-movie",
+                    "year": "1990"
                 }
                 """.trimIndent())
             }
@@ -51,4 +44,3 @@ class FindMoviesApiTests {
         movie.forEach { movieCatalogue.add(it) }
     }
 }
-

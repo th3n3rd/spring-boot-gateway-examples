@@ -5,6 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 
 interface MovieCatalogue {
     fun findAll(): List<Movie>
+    fun findByTitle(title: String): Movie?
 }
 
 @Repository
@@ -17,5 +18,9 @@ class InMemoryMovieCatalogue : MovieCatalogue {
 
     override fun findAll(): List<Movie> {
         return movies
+    }
+
+    override fun findByTitle(title: String): Movie? {
+        return movies.find { it.title == title }
     }
 }
