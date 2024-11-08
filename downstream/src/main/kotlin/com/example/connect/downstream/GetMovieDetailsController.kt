@@ -1,8 +1,7 @@
 package com.example.connect.downstream
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus.NOT_FOUND
+import org.springframework.web.bind.annotation.*
 import java.time.Year
 
 @RestController
@@ -14,8 +13,12 @@ class GetMovieDetailsController(
     fun handle(@PathVariable title: String): Any {
         return movieCatalogue.findByTitle(title)
             ?.let { Response(it.title, it.year) }
-            ?: TODO()
+            ?: throw MovieNotFound(title)
     }
+
+    @ExceptionHandler(MovieNotFound::class)
+    @ResponseStatus(NOT_FOUND)
+    fun handleMovieNotFound() {}
 
     data class Response(val title: String, val year: Year)
 }

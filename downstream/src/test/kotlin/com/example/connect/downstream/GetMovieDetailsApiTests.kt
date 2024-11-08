@@ -40,6 +40,15 @@ class GetMovieDetailsApiTests {
         }
     }
 
+    @Test
+    fun `fails when the movie is not found`() {
+        val result = client.get("/movies/unknown-movie")
+
+        result.andExpect {
+            status { isNotFound() }
+        }
+    }
+
     private fun givenTheCatalogueContains(vararg movie: Movie) {
         movie.forEach { movieCatalogue.add(it) }
     }
