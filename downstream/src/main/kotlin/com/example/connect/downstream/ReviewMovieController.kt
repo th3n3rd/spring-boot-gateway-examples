@@ -24,7 +24,7 @@ class ReviewMovieController {
 
     @ExceptionHandler(ReviewAlreadySubmitted::class)
     @ResponseStatus(BAD_REQUEST)
-    fun handleMovieNotFound(): Any {
+    fun handleReviewAlreadySubmitted(): Any {
         return Error("Review already submitted")
     }
 
