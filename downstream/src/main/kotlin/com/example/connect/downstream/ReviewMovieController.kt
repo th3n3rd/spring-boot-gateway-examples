@@ -13,11 +13,11 @@ class ReviewMovieController {
     @ResponseStatus(CREATED)
     fun handle(
         @PathVariable title: String,
-        @RequestHeader(name = "X-Stub-Response", required = false) stubResponse: StubResponse?
+        @RequestHeader(name = "X-Stub-Scenario", required = false) stubScenario: StubScenario?
     ) {
-        return when(stubResponse) {
-            StubResponse.ReviewSubmitted -> Unit
-            StubResponse.ReviewAlreadySubmitted -> throw ReviewAlreadySubmitted(title)
+        return when(stubScenario) {
+            StubScenario.ReviewSubmitted -> Unit
+            StubScenario.ReviewAlreadySubmitted -> throw ReviewAlreadySubmitted(title)
             else -> TODO()
         }
     }
@@ -30,7 +30,7 @@ class ReviewMovieController {
 
     data class Error(val description: String)
 
-    enum class StubResponse {
+    enum class StubScenario {
         ReviewSubmitted,
         ReviewAlreadySubmitted,
     }

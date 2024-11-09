@@ -22,7 +22,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "X-Stub-Response",
+          "name" : "X-Stub-Scenario",
           "in" : "header",
           "required" : false,
           "schema" : {
