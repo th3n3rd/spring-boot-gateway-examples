@@ -24,12 +24,23 @@
         }, {
           "name" : "X-Stub-Response",
           "in" : "header",
+          "required" : false,
           "schema" : {
             "type" : "string",
-            "enum" : [ "review-submitted" ]
+            "enum" : [ "ReviewSubmitted", "ReviewAlreadySubmitted" ]
           }
         } ],
         "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          },
           "201" : {
             "description" : "Created"
           }

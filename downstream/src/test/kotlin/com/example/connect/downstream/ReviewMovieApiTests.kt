@@ -18,7 +18,7 @@ class ReviewMovieApiTests {
     @Test
     fun `review submitted successfully`() {
         val result = client.post("/movies/any-movie/reviews") {
-            header("X-Stub-Response", "review-submitted")
+            header("X-Stub-Response", "ReviewSubmitted")
             content = """{ "rating": 1 }""".trimIndent()
         }
 
@@ -30,7 +30,7 @@ class ReviewMovieApiTests {
     @Test
     fun `review already submitted`() {
         val result = client.post("/movies/any-movie/reviews") {
-            header("X-Stub-Response", "review-already-submitted")
+            header("X-Stub-Response", "ReviewAlreadySubmitted")
             content = """{ "rating": 5 }""".trimIndent()
         }
 
