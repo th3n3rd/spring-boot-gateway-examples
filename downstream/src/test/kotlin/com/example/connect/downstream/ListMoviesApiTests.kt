@@ -9,10 +9,10 @@ import org.springframework.test.web.servlet.get
 import java.time.Year
 
 @WebMvcTest(
-    FindMoviesController::class,
+    ListMoviesController::class,
     InMemoryMovieCatalogue::class
 )
-class FindMoviesApiTests {
+class ListMoviesApiTests {
 
     @Autowired
     private lateinit var client: MockMvc

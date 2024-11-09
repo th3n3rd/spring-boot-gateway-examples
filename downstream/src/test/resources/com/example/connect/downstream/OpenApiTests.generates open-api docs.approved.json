@@ -12,7 +12,8 @@
     "/movies/{title}/reviews" : {
       "post" : {
         "tags" : [ "review-movie-controller" ],
-        "operationId" : "reviewSubmitted_1",
+        "summary" : "Review movie",
+        "operationId" : "reviewMovie",
         "parameters" : [ {
           "name" : "title",
           "in" : "path",
@@ -25,30 +26,21 @@
           "in" : "header",
           "schema" : {
             "type" : "string",
-            "enum" : [ "review-submitted", "review-already-submitted" ]
+            "enum" : [ "review-submitted" ]
           }
         } ],
         "responses" : {
           "201" : {
             "description" : "Created"
-          },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "*/*" : {
-                "schema" : {
-                  "type" : "object"
-                }
-              }
-            }
           }
         }
       }
     },
     "/movies" : {
       "get" : {
-        "tags" : [ "find-movies-controller" ],
-        "operationId" : "handle",
+        "tags" : [ "list-movies-controller" ],
+        "summary" : "List movies",
+        "operationId" : "listMovies",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -66,7 +58,8 @@
     "/movies/{title}" : {
       "get" : {
         "tags" : [ "get-movie-details-controller" ],
-        "operationId" : "handle_1",
+        "summary" : "Get movie details",
+        "operationId" : "movieDetails",
         "parameters" : [ {
           "name" : "title",
           "in" : "path",
