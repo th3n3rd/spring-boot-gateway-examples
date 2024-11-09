@@ -1,0 +1,97 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Downstream API",
+    "version" : "v0.0.1"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080",
+    "description" : "Local server"
+  } ],
+  "paths" : {
+    "/movies/{title}/reviews" : {
+      "post" : {
+        "tags" : [ "review-movie-controller" ],
+        "operationId" : "reviewSubmitted_1",
+        "parameters" : [ {
+          "name" : "title",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Stub-Response",
+          "in" : "header",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "review-submitted", "review-already-submitted" ]
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies" : {
+      "get" : {
+        "tags" : [ "find-movies-controller" ],
+        "operationId" : "handle",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/{title}" : {
+      "get" : {
+        "tags" : [ "get-movie-details-controller" ],
+        "operationId" : "handle_1",
+        "parameters" : [ {
+          "name" : "title",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Not Found"
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : { }
+}
