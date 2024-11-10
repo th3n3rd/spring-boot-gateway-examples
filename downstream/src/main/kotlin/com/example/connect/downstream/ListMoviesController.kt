@@ -1,6 +1,7 @@
 package com.example.connect.downstream
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -11,15 +12,12 @@ class ListMoviesController(
 
     @Operation(summary = "List movies", operationId = "listMovies")
     @GetMapping("/movies")
-    fun handle(): Any {
+    fun handle(): Response {
         return Response(
-            movieCatalogue.findAll().map {
-                Response.Movie(it.title)
-            }
+            movies = movieCatalogue.findAll().map { it.title }
         )
     }
 
-    data class Response(val movies: List<Movie>) {
-        data class Movie(val title: String)
-    }
+    @Schema(name = "ListMoviesResponse")
+    data class Response(val movies: List<String>)
 }

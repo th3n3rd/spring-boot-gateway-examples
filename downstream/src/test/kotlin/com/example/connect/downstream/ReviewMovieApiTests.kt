@@ -35,7 +35,7 @@ class ReviewMovieApiTests {
         }
 
         result.andExpect {
-            status { is4xxClientError() }
+            status { isBadRequest() }
             content {
                 contentType(APPLICATION_JSON)
                 json("""

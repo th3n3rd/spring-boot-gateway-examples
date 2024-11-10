@@ -58,7 +58,7 @@
             "content" : {
               "*/*" : {
                 "schema" : {
-                  "type" : "object"
+                  "$ref" : "#/components/schemas/ListMoviesResponse"
                 }
               }
             }
@@ -88,7 +88,7 @@
             "content" : {
               "*/*" : {
                 "schema" : {
-                  "type" : "object"
+                  "$ref" : "#/components/schemas/MovieDetailsResponse"
                 }
               }
             }
@@ -104,6 +104,30 @@
         "type" : "object",
         "properties" : {
           "description" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ListMoviesResponse" : {
+        "required" : [ "movies" ],
+        "type" : "object",
+        "properties" : {
+          "movies" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "MovieDetailsResponse" : {
+        "required" : [ "title", "year" ],
+        "type" : "object",
+        "properties" : {
+          "title" : {
+            "type" : "string"
+          },
+          "year" : {
             "type" : "string"
           }
         }

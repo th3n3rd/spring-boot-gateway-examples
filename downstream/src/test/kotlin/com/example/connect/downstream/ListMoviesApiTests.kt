@@ -37,9 +37,9 @@ class ListMoviesApiTests {
                 json("""
                 {
                     "movies": [
-                        { title: "first-movie" },
-                        { title: "second-movie" },
-                        { title: "third-movie" }
+                        "first-movie",
+                        "second-movie",
+                        "third-movie"
                     ]
                 }
                 """.trimIndent())
