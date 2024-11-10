@@ -36,7 +36,7 @@
             "content" : {
               "*/*" : {
                 "schema" : {
-                  "type" : "object"
+                  "$ref" : "#/components/schemas/Error"
                 }
               }
             }
@@ -97,5 +97,17 @@
       }
     }
   },
-  "components" : { }
+  "components" : {
+    "schemas" : {
+      "Error" : {
+        "required" : [ "description" ],
+        "type" : "object",
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
 }
