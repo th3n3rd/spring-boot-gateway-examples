@@ -1,3 +1,3 @@
 rootProject.name = "spring-boot-examples"
-include("downstream")
+include("downstream-movies")
 include("gateway")

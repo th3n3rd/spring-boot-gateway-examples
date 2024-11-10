@@ -24,8 +24,8 @@ class ReviewMovieController {
 
     @ExceptionHandler(ReviewAlreadySubmitted::class)
     @ResponseStatus(BAD_REQUEST)
-    fun handleReviewAlreadySubmitted(): DownstreamApi.Response.Error {
-        return DownstreamApi.Response.Error("Review already submitted")
+    fun handleReviewAlreadySubmitted(): DownstreamMoviesApi.Response.Error {
+        return DownstreamMoviesApi.Response.Error("Review already submitted")
     }
 
     enum class StubScenario {

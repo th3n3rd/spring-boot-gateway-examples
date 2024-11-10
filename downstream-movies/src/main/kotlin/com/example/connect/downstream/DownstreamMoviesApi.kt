@@ -6,14 +6,14 @@ import io.swagger.v3.oas.annotations.servers.Server
 
 @OpenAPIDefinition(
     info = Info(
-        title = "Downstream API",
+        title = "Downstream Movies API",
         version = "v0.0.1"
     ),
     servers = [
         Server(url = "http://localhost:8080", description = "Local server")
     ]
 )
-object DownstreamApi {
+object DownstreamMoviesApi {
     object Response {
         data class Error(val description: String)
     }
