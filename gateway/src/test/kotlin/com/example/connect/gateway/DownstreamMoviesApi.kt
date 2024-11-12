@@ -16,18 +16,30 @@ class DownstreamMoviesApi(private val client: TestRestTemplate) {
     val baseUrl = "http://localhost:${server.port}"
 
     init {
+        setupStubs()
+    }
+
+    fun listMovies(): ResponseEntity<String> {
+        return client.getForEntity<String>("$baseUrl/movies")
+    }
+
+    fun movieDetails(title: String): ResponseEntity<String> {
+        return client.getForEntity<String>("$baseUrl/movies/$title")
+    }
+
+    private fun setupStubs(overrideOperations: Map<String, String> = mapOf()) {
         server.upsert(
             openAPIExpectation(
                 Files.readString(
                     Path.of(
                         ResourceUtils.getURL("classpath:downstream-movies-api.json").toURI()
                     )
-                )
+                ),
+                mapOf(
+                    "listMovies" to "200",
+                    "movieDetails" to "200"
+                ) + overrideOperations
             )
         )
-    }
-
-    fun listMovies(): ResponseEntity<String> {
-        return client.getForEntity<String>("$baseUrl/movies")
     }
 }

@@ -23,6 +23,13 @@ class MoviesApiTests {
         assertThat(response.body).isEqualTo(downstreamMoviesApi.listMovies().body)
     }
 
+    @Test
+    fun `get movie details`() {
+        val response = client.getForEntity<String>("/api/v1/movies/any-movie")
+
+        assertThat(response.body).isEqualTo(downstreamMoviesApi.movieDetails("any-movie").body)
+    }
+
     companion object {
         private val downstreamMoviesApi = DownstreamMoviesApi(TestRestTemplate())
 

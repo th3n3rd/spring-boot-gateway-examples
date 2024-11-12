@@ -12,6 +12,6 @@ spring:
           - id: downstream-movies
             uri: ${services.downstream-movies.uri}
             predicates:
-              - Path=/api/v1/movies
+              - Path=/api/v1/movies/**
             filters:
               - RewritePath=/api/v1/movies, /movies
