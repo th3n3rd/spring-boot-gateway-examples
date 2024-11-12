@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.getForEntity
+import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 
@@ -28,6 +29,13 @@ class MoviesApiTests {
         val response = client.getForEntity<String>("/api/v1/movies/any-movie")
 
         assertThat(response.body).isEqualTo(downstreamMoviesApi.movieDetails("any-movie").body)
+    }
+
+    @Test
+    fun `review movie`() {
+        val response = client.postForEntity<String>("/api/v1/movies/any-movie", mapOf("rating" to 4))
+
+        assertThat(response.body).isEqualTo(downstreamMoviesApi.reviewMovie("any-movie", 4).body)
     }
 
     companion object {

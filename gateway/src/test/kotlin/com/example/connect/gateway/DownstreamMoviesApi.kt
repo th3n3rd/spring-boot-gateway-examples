@@ -4,6 +4,7 @@ import org.mockserver.integration.ClientAndServer.startClientAndServer
 import org.mockserver.mock.OpenAPIExpectation.openAPIExpectation
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.getForEntity
+import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.util.ResourceUtils
 import java.nio.file.Files
@@ -27,6 +28,10 @@ class DownstreamMoviesApi(private val client: TestRestTemplate) {
         return client.getForEntity<String>("$baseUrl/movies/$title")
     }
 
+    fun reviewMovie(title: String, rating: Int): ResponseEntity<String> {
+        return client.postForEntity<String>("$baseUrl/movies/$title/reviews", mapOf("rating" to rating))
+    }
+
     private fun setupStubs(overrideOperations: Map<String, String> = mapOf()) {
         server.upsert(
             openAPIExpectation(
@@ -37,7 +42,8 @@ class DownstreamMoviesApi(private val client: TestRestTemplate) {
                 ),
                 mapOf(
                     "listMovies" to "200",
-                    "movieDetails" to "200"
+                    "movieDetails" to "200",
+                    "reviewMovie" to "201",
                 ) + overrideOperations
             )
         )
