@@ -1,0 +1,137 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Downstream Movies API",
+    "version" : "v0.0.1"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080",
+    "description" : "Local server"
+  } ],
+  "paths" : {
+    "/movies/{title}/reviews" : {
+      "post" : {
+        "tags" : [ "review-movie-controller" ],
+        "summary" : "Review movie",
+        "operationId" : "reviewMovie",
+        "parameters" : [ {
+          "name" : "title",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Stub-Scenario",
+          "in" : "header",
+          "required" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ReviewSubmitted", "ReviewAlreadySubmitted" ]
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "201" : {
+            "description" : "Created"
+          }
+        }
+      }
+    },
+    "/movies" : {
+      "get" : {
+        "tags" : [ "list-movies-controller" ],
+        "summary" : "List movies",
+        "operationId" : "listMovies",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ListMoviesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/{title}" : {
+      "get" : {
+        "tags" : [ "get-movie-details-controller" ],
+        "summary" : "Get movie details",
+        "operationId" : "movieDetails",
+        "parameters" : [ {
+          "name" : "title",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Not Found"
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MovieDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Error" : {
+        "required" : [ "description" ],
+        "type" : "object",
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ListMoviesResponse" : {
+        "required" : [ "movies" ],
+        "type" : "object",
+        "properties" : {
+          "movies" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "MovieDetailsResponse" : {
+        "required" : [ "title", "year" ],
+        "type" : "object",
+        "properties" : {
+          "title" : {
+            "type" : "string"
+          },
+          "year" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

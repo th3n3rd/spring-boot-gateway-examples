@@ -1,0 +1,17 @@
+services:
+  downstream-movies:
+    uri: http://localhost:8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: downstream-movies
+            uri: ${services.downstream-movies.uri}
+            predicates:
+              - Path=/api/v1/movies
+            filters:
+              - RewritePath=/api/v1/movies, /movies
